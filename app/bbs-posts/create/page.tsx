@@ -1,4 +1,5 @@
 "use client";
+import { postBBS } from "@/app/actions/postBBSAction";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -45,19 +46,9 @@ const Create = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    try {
-      const res = await fetch("http://localhost:3000/api/post", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-    }
+    await postBBS(data);
+    router.push("/");
+    router.refresh();
   };
 
   return (
